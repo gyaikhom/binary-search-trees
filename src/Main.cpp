@@ -1,11 +1,10 @@
 #include <iostream>
-#include "SplayTreeNode.hh"
+#include "SplayTree.hh"
 
 using namespace std;
 
 int main(int argc, char **argv) {
-    SplayTreeNode a(1);
-    SplayTreeNode b(2);
-    cout << (a < b);
+    SplayTree tree;
+    tree.add(1);
     return 0;
 }

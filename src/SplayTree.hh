@@ -10,4 +10,5 @@ public:
 
 private:
     SplayTreeNode* root;
+    void destroy(SplayTreeNode *root);
 };
