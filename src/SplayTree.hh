@@ -5,7 +5,7 @@ public:
     SplayTree();
     ~SplayTree();
     int add(int key);
-    SplayTreeNode* find(int key);
+    SplayTreeNode* find(int key, bool doSplay);
     int remove(int key);
     void preorder();
     void inorder();

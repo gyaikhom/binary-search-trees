@@ -93,10 +93,13 @@ int SplayTree::add(int key) {
     return 0;
 }
 
-SplayTreeNode* SplayTree::find(int key) {
+SplayTreeNode* SplayTree::find(int key, bool doSplay) {
     SplayTreeNode* current = root;
     while (current) {
         if (key == current->key) {
+            if (doSplay) {
+                splayBottomUp(current);
+            }
             return current;
         } else {
             if (key < current->key) {
@@ -114,13 +117,32 @@ int SplayTree::remove(int key) {
 }
 
 SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
-    SplayTreeNode *parent = current->parent, *grandParent;
-    while (parent) {
+    SplayTreeNode *parent, *grandParent;
+    while (1) {
+        parent = current->parent;
+        if (!parent) {
+            break;
+        }
         grandParent = parent->parent;
         if (grandParent) {
+            if (grandParent->parent) {
+                if (grandParent->parent->left == grandParent) {
+                    grandParent->parent->left = current;
+                } else {
+                    grandParent->parent->right = current;
+                }
+            }
             if (current == parent->left) {
                 if (parent == grandParent->left) {
+                    cout << "\nZig Zig right-right";
                     /* zig-zig right-right rotations */
+                    if (current->right) {
+                        current->right->parent = parent;
+                    }
+                    if (parent->right) {
+                        parent->right->parent = grandParent;
+                    }
+
                     current->parent = grandParent->parent;
                     grandParent->parent = parent;
                     parent->parent = current;
@@ -130,7 +152,15 @@ SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
                     parent->left = current->right;
                     current->right = parent;
                 } else {
+                    cout << "\nZig Zag right-left";
                     /* zig-zag right-left rotations */
+                    if (current->left) {
+                        current->left->parent = grandParent;
+                    }
+                    if (current->right) {
+                        current->right->parent = parent;
+                    }
+
                     current->parent = grandParent->parent;
                     grandParent->parent = current;
                     parent->parent = current;
@@ -142,7 +172,15 @@ SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
                 }
             } else {
                 if (parent == grandParent->left) {
+                    cout << "\nZig Zag left-right";
                     /* zig-zag left-right rotations */
+                    if (current->left) {
+                        current->left->parent = parent;
+                    }
+                    if (parent->right) {
+                        parent->right->parent = grandParent;
+                    }
+
                     current->parent = grandParent->parent;
                     grandParent->parent = current;
                     parent->parent = current;
@@ -152,7 +190,15 @@ SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
                     current->left = parent;
                     current->right = grandParent;
                 } else {
+                    cout << "\nZig Zig left-left";
                     /* zig-zig left-left rotations */
+                    if (current->left) {
+                        current->left->parent = parent;
+                    }
+                    if (parent->left) {
+                        parent->left->parent = grandParent;
+                    }
+
                     current->parent = grandParent->parent;
                     grandParent->parent = parent;
                     parent->parent = current;
@@ -163,7 +209,6 @@ SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
                     current->left = parent;
                 }
             }
-            parent = current->parent;
         } else {
             if (current == parent->left) {
                 /* right rotate */
@@ -180,5 +225,6 @@ SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
             break;
         }
     }
+    root = current;
     return current;
 }

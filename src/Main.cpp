@@ -18,19 +18,33 @@ int main(int argc, char **argv) {
     tree.inorder();
     tree.postorder();
 
-    SplayTreeNode* node = tree.find(1);
-    if (node) {
-        cout << "\nFound node with key " << node->key;
-    } else {
-        cout << "\nCould not find node with key " << 1;
-    }
-
-    node = tree.find(2);
+    SplayTreeNode* node = tree.find(2, false);
     if (node) {
         cout << "\nFound node with key " << node->key;
     } else {
         cout << "\nCould not find node with key " << 2;
     }
+
+    node = tree.find(1, false);
+    if (node) {
+        cout << "\nFound node with key " << node->key;
+    } else {
+        cout << "\nCould not find node with key " << 1;
+    }
+    tree.preorder();
+
+    node = tree.find(1, true);
+    if (node) {
+        cout << "\nFound node with key " << node->key;
+    } else {
+        cout << "\nCould not find node with key " << 1;
+    }
+    tree.preorder();
+
+    node = tree.find(9, true);
+    tree.preorder();
+node = tree.find(4, true);
+tree.preorder();
 
     return 0;
 }
