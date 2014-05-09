@@ -7,19 +7,17 @@ SplayTree::SplayTree() {
     root = 0;
 }
 
-void SplayTree::destroy(SplayTreeNode* root) {
-    if (root == 0) {
-        return;
-    } else {
-        destroy(root->left);
-        destroy(root->right);
+void SplayTree::destroyRecursive(SplayTreeNode* root) {
+    if (root) {
+        destroyRecursive(root->left);
+        destroyRecursive(root->right);
         cout << "Deleting node " << root->key << "\n";
         delete root;
     }
 }
 
 SplayTree::~SplayTree() {
-    destroy(root);
+    destroyRecursive(root);
 }
 
 void SplayTree::preorder() {

@@ -13,7 +13,7 @@ public:
 
 private:
     SplayTreeNode* root;
-    void destroy(SplayTreeNode *root);
+    void destroyRecursive(SplayTreeNode *root);
     void preorderRecursive(SplayTreeNode *root);
     void inorderRecursive(SplayTreeNode *root);
     void postorderRecursive(SplayTreeNode *root);
