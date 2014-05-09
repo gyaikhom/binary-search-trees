@@ -1,0 +1,8 @@
+cmake_minimum_required (VERSION 2.8)
+project (SPLAYTREE)
+set (CMAKE_CXX_FLAGS "-g -Wall")
+add_subdirectory (src)
+include_directories (${SPLAYTREE_SOURCE_DIR}/src)
+link_directories (${SPLAYTREE_SOURCE_DIR}/src)
+add_executable (splaytree src/Main.cpp)
+target_link_libraries (splaytree DataStructure)
