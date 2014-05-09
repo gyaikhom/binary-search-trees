@@ -11,7 +11,7 @@ void SplayTree::destroyRecursive(SplayTreeNode* root) {
     if (root) {
         destroyRecursive(root->left);
         destroyRecursive(root->right);
-        cout << "Deleting node " << root->key << "\n";
+        cout << "\nDeleting node " << root->key;
         delete root;
     }
 }
@@ -75,6 +75,7 @@ int SplayTree::add(int key) {
                         current = current->left;
                     } else {
                         current->left = newNode;
+                        newNode->parent = current;
                         return 0;
                     }
                 } else {
@@ -82,6 +83,7 @@ int SplayTree::add(int key) {
                         current = current->right;
                     } else {
                         current->right = newNode;
+                        newNode->parent = current;
                         return 0;
                     }
                 }
@@ -92,8 +94,91 @@ int SplayTree::add(int key) {
 }
 
 SplayTreeNode* SplayTree::find(int key) {
+    SplayTreeNode* current = root;
+    while (current) {
+        if (key == current->key) {
+            return current;
+        } else {
+            if (key < current->key) {
+                current = current->left;
+            } else {
+                current = current->right;
+            }
+        }
+    }
     return 0;
 }
+
 int SplayTree::remove(int key) {
     return 0;
+}
+
+SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
+    SplayTreeNode *parent = current->parent, *grandParent;
+    while (parent) {
+        grandParent = parent->parent;
+        if (grandParent) {
+            if (current == parent->left) {
+                if (parent == grandParent->left) {
+                    /* zig-zig right-right rotations */
+                    current->parent = grandParent->parent;
+                    grandParent->parent = parent;
+                    parent->parent = current;
+
+                    grandParent->left = parent->right;
+                    parent->right = grandParent;
+                    parent->left = current->right;
+                    current->right = parent;
+                } else {
+                    /* zig-zag right-left rotations */
+                    current->parent = grandParent->parent;
+                    grandParent->parent = current;
+                    parent->parent = current;
+
+                    grandParent->right = current->left;
+                    parent->left = current->right;
+                    current->right = parent;
+                    current->left = grandParent;
+                }
+            } else {
+                if (parent == grandParent->left) {
+                    /* zig-zag left-right rotations */
+                    current->parent = grandParent->parent;
+                    grandParent->parent = current;
+                    parent->parent = current;
+
+                    grandParent->left = current->right;
+                    parent->right = current->left;
+                    current->left = parent;
+                    current->right = grandParent;
+                } else {
+                    /* zig-zig left-left rotations */
+                    current->parent = grandParent->parent;
+                    grandParent->parent = parent;
+                    parent->parent = current;
+
+                    grandParent->right = parent->left;
+                    parent->left = grandParent;
+                    parent->right = current->left;
+                    current->left = parent;
+                }
+            }
+            parent = current->parent;
+        } else {
+            if (current == parent->left) {
+                /* right rotate */
+                parent->left = current->right;
+                parent->parent = current;
+                current->right = parent;
+            } else {
+                /* left rotate */
+                parent->right = current->left;
+                parent->parent = current;
+                current->left = parent;
+            }
+            current->parent = 0;
+            break;
+        }
+    }
+    return current;
 }

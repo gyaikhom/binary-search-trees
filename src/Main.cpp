@@ -17,5 +17,20 @@ int main(int argc, char **argv) {
     tree.preorder();
     tree.inorder();
     tree.postorder();
+
+    SplayTreeNode* node = tree.find(1);
+    if (node) {
+        cout << "\nFound node with key " << node->key;
+    } else {
+        cout << "\nCould not find node with key " << 1;
+    }
+
+    node = tree.find(2);
+    if (node) {
+        cout << "\nFound node with key " << node->key;
+    } else {
+        cout << "\nCould not find node with key " << 2;
+    }
+
     return 0;
 }

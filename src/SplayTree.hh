@@ -17,4 +17,5 @@ private:
     void preorderRecursive(SplayTreeNode *root);
     void inorderRecursive(SplayTreeNode *root);
     void postorderRecursive(SplayTreeNode *root);
+    SplayTreeNode* splayBottomUp(SplayTreeNode* current);
 };
