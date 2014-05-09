@@ -6,4 +6,5 @@ public:
         parent = left = right = 0;
     };
     bool operator<(const SplayTreeNode& other);
+    bool operator==(const SplayTreeNode& other);
 };
