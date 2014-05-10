@@ -1,3 +1,5 @@
+/* Copyright 2014 Gagarine Yaikhom (MIT License) */
+
 #include "SplayTreeNode.hh"
 
 class SplayTree {
@@ -14,6 +16,8 @@ public:
 private:
     SplayTreeNode* root;
     void destroyRecursive(SplayTreeNode *root);
+    void destroyNonRecursive(SplayTreeNode* root);
+    
     void preorderRecursive(SplayTreeNode *root);
     void inorderRecursive(SplayTreeNode *root);
     void postorderRecursive(SplayTreeNode *root);

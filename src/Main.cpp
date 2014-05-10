@@ -1,3 +1,5 @@
+/* Copyright 2014 Gagarine Yaikhom (MIT License) */
+
 #include <iostream>
 #include "SplayTree.hh"
 
@@ -20,14 +22,14 @@ int main(int argc, char **argv) {
 
     SplayTreeNode* node = tree.find(2, false);
     if (node) {
-        cout << "\nFound node with key " << node->key;
+        cout << "\nFound node with key " << 2;
     } else {
         cout << "\nCould not find node with key " << 2;
     }
 
     node = tree.find(1, false);
     if (node) {
-        cout << "\nFound node with key " << node->key;
+        cout << "\nFound node with key " << 1;
     } else {
         cout << "\nCould not find node with key " << 1;
     }
@@ -35,7 +37,7 @@ int main(int argc, char **argv) {
 
     node = tree.find(1, true);
     if (node) {
-        cout << "\nFound node with key " << node->key;
+        cout << "\nFound node with key " << 1;
     } else {
         cout << "\nCould not find node with key " << 1;
     }
