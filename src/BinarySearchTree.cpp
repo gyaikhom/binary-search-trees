@@ -11,7 +11,7 @@ BinarySearchTree::BinarySearchTree() {
 
 void BinarySearchTree::preorderRecursive(BinarySearchTreeNode* root) {
     if (root) {
-        cout << root->key;
+        root->print();
         preorderRecursive(root->left);
         preorderRecursive(root->right);
     }
@@ -21,7 +21,7 @@ void BinarySearchTree::preorderNonRecursive(BinarySearchTreeNode* root) {
     BinarySearchTreeNode* current = root;
     while (current) {
         if (!current->visited) {
-            cout << current->key;
+            current->print();
             current->visited = true;
         }
 
@@ -32,6 +32,7 @@ void BinarySearchTree::preorderNonRecursive(BinarySearchTreeNode* root) {
             current = current->right;
             continue;
         }
+
         if (current->left)
             current->left->visited = false;
         if (current->right)
@@ -50,7 +51,7 @@ void BinarySearchTree::preorder() {
 void BinarySearchTree::inorderRecursive(BinarySearchTreeNode* root) {
     if (root) {
         inorderRecursive(root->left);
-        cout << root->key;
+        root->print();
         inorderRecursive(root->right);
     }
 }
@@ -64,7 +65,7 @@ void BinarySearchTree::inorderNonRecursive(BinarySearchTreeNode* root) {
         }
 
         if (!current->visited) {
-            cout << current->key;
+            current->print();
             current->visited = true;
         }
 
@@ -72,10 +73,12 @@ void BinarySearchTree::inorderNonRecursive(BinarySearchTreeNode* root) {
             current = current->right;
             continue;
         }
+
         if (current->left)
             current->left->visited = false;
         if (current->right)
             current->right->visited = false;
+
         current = current->parent;
     };
     root->visited = false;
@@ -90,7 +93,7 @@ void BinarySearchTree::postorderRecursive(BinarySearchTreeNode* root) {
     if (root) {
         postorderRecursive(root->left);
         postorderRecursive(root->right);
-        cout << root->key;
+        root->print();
     }
 }
 
@@ -106,7 +109,7 @@ void BinarySearchTree::postorderNonRecursive(BinarySearchTreeNode* root) {
         }
 
         if (!current->visited) {
-            cout << current->key;
+            current->print();
             current->visited = true;
         }
 
@@ -114,6 +117,7 @@ void BinarySearchTree::postorderNonRecursive(BinarySearchTreeNode* root) {
             current->left->visited = false;
         if (current->right)
             current->right->visited = false;
+
         current = current->parent;
     };
     root->visited = false;
@@ -136,17 +140,17 @@ int BinarySearchTree::add(int key) {
                 return 1; /* duplicate key */
             } else {
                 if (*newNode < *current) {
-                    if (current->left) {
+                    if (current->left)
                         current = current->left;
-                    } else {
+                    else {
                         current->left = newNode;
                         newNode->parent = current;
                         return 0;
                     }
                 } else {
-                    if (current->right) {
+                    if (current->right)
                         current = current->right;
-                    } else {
+                    else {
                         current->right = newNode;
                         newNode->parent = current;
                         return 0;
@@ -161,14 +165,13 @@ int BinarySearchTree::add(int key) {
 BinarySearchTreeNode* BinarySearchTree::find(int key) {
     BinarySearchTreeNode* current = root;
     while (current) {
-        if (key == current->key) {
+        if (key == current->key)
             return current;
-        } else {
-            if (key < current->key) {
+        else {
+            if (key < current->key)
                 current = current->left;
-            } else {
+            else
                 current = current->right;
-            }
         }
     }
     return 0;
@@ -189,7 +192,6 @@ void BinarySearchTree::destroyRecursive(BinarySearchTreeNode* root) {
 
 void BinarySearchTree::destroyNonRecursive(BinarySearchTreeNode* root) {
     BinarySearchTreeNode* temp;
-    /* similar to postorder traversal */
     while (root) {
         if (root->left) {
             root = root->left;
@@ -198,6 +200,7 @@ void BinarySearchTree::destroyNonRecursive(BinarySearchTreeNode* root) {
             root = root->right;
             continue;
         }
+
         temp = root->parent;
         if (temp) {
             if (temp->left == root)

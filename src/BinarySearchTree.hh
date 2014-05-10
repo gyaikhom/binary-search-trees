@@ -19,7 +19,9 @@ public:
 
 protected:
     BinarySearchTreeNode* root;
-
+    
+    void printKey();
+    
     void destroyRecursive(BinarySearchTreeNode *root);
     void destroyNonRecursive(BinarySearchTreeNode* root);
     

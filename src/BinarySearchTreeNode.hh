@@ -3,6 +3,10 @@
 #ifndef BINARY_SEARCH_TREE_NODE_HH
 #define	BINARY_SEARCH_TREE_NODE_HH
 
+#include <iostream>
+
+using namespace std;
+
 class SplayTree;
 
 class BinarySearchTreeNode {
@@ -13,6 +17,9 @@ public:
     };
     bool operator<(const BinarySearchTreeNode& other);
     bool operator==(const BinarySearchTreeNode& other);
+    void print() {
+        cout << key << " ";
+    }
 
 protected:
     int key;
