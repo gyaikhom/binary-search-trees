@@ -14,7 +14,7 @@ public:
     BinarySearchTreeNode* find(int key);
 
 private:
-    BinarySearchTreeNode* splayBottomUp(BinarySearchTreeNode* current);
+    void splayBottomUp(BinarySearchTreeNode* current);
 };
 
 #endif

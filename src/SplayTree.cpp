@@ -26,17 +26,17 @@ int SplayTree::add(int key) {
             return 1; /* duplicate key */
         } else {
             if (*newNode < *current) {
-                if (current->left) {
+                if (current->left)
                     current = current->left;
-                } else {
+                else {
                     current->left = newNode;
                     newNode->parent = current;
                     goto splay;
                 }
             } else {
-                if (current->right) {
+                if (current->right)
                     current = current->right;
-                } else {
+                else {
                     current->right = newNode;
                     newNode->parent = current;
                     goto splay;
@@ -57,11 +57,10 @@ BinarySearchTreeNode* SplayTree::find(int key) {
             splayBottomUp(current);
             return current;
         } else {
-            if (key < current->key) {
+            if (key < current->key)
                 current = current->left;
-            } else {
+            else
                 current = current->right;
-            }
         }
     }
     return 0;
@@ -71,32 +70,31 @@ int SplayTree::remove(int key) {
     return 0;
 }
 
-BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
+void SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
+    if (!current)
+        return;
+
     BinarySearchTreeNode *parent, *grandParent;
     while (1) {
         parent = current->parent;
-        if (!parent) {
+        if (!parent)
             break;
-        }
+
         grandParent = parent->parent;
         if (grandParent) {
             if (grandParent->parent) {
-                if (grandParent->parent->left == grandParent) {
+                if (grandParent->parent->left == grandParent)
                     grandParent->parent->left = current;
-                } else {
+                else
                     grandParent->parent->right = current;
-                }
             }
             if (current == parent->left) {
                 if (parent == grandParent->left) {
-                    cout << "\nZig Zig right-right";
                     /* zig-zig right-right rotations */
-                    if (current->right) {
+                    if (current->right)
                         current->right->parent = parent;
-                    }
-                    if (parent->right) {
+                    if (parent->right)
                         parent->right->parent = grandParent;
-                    }
 
                     current->parent = grandParent->parent;
                     grandParent->parent = parent;
@@ -107,14 +105,11 @@ BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
                     parent->left = current->right;
                     current->right = parent;
                 } else {
-                    cout << "\nZig Zag right-left";
                     /* zig-zag right-left rotations */
-                    if (current->left) {
+                    if (current->left)
                         current->left->parent = grandParent;
-                    }
-                    if (current->right) {
+                    if (current->right)
                         current->right->parent = parent;
-                    }
 
                     current->parent = grandParent->parent;
                     grandParent->parent = current;
@@ -127,14 +122,11 @@ BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
                 }
             } else {
                 if (parent == grandParent->left) {
-                    cout << "\nZig Zag left-right";
                     /* zig-zag left-right rotations */
-                    if (current->left) {
+                    if (current->left)
                         current->left->parent = parent;
-                    }
-                    if (parent->right) {
-                        parent->right->parent = grandParent;
-                    }
+                    if (current->right)
+                        current->right->parent = grandParent;
 
                     current->parent = grandParent->parent;
                     grandParent->parent = current;
@@ -145,14 +137,11 @@ BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
                     current->left = parent;
                     current->right = grandParent;
                 } else {
-                    cout << "\nZig Zig left-left";
                     /* zig-zig left-left rotations */
-                    if (current->left) {
+                    if (current->left)
                         current->left->parent = parent;
-                    }
-                    if (parent->left) {
+                    if (parent->left)
                         parent->left->parent = grandParent;
-                    }
 
                     current->parent = grandParent->parent;
                     grandParent->parent = parent;
@@ -168,11 +157,15 @@ BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
             if (current == parent->left) {
                 /* right rotate */
                 parent->left = current->right;
+                if (current->right)
+                    current->right->parent = parent;
                 parent->parent = current;
                 current->right = parent;
             } else {
                 /* left rotate */
                 parent->right = current->left;
+                if (current->left)
+                    current->left->parent = parent;
                 parent->parent = current;
                 current->left = parent;
             }
@@ -181,5 +174,5 @@ BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
         }
     }
     root = current;
-    return current;
+    return;
 }
