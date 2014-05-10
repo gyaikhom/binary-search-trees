@@ -1,3 +1,5 @@
+/* Copyright 2014 Gagarine Yaikhom (MIT License) */
+
 #include <iostream>
 #include "SplayTree.hh"
 
@@ -16,8 +18,33 @@ void SplayTree::destroyRecursive(SplayTreeNode* root) {
     }
 }
 
+void SplayTree::destroyNonRecursive(SplayTreeNode* root) {
+    SplayTreeNode* temp;
+    /* similar to postorder traversal */
+    while (root) {
+        if (root->left) {
+            root = root->left;
+            continue;
+        } else if (root->right) {
+            root = root->right;
+            continue;
+        }
+        temp = root->parent;
+        if (temp) {
+            if (temp->left == root)
+                temp->left = 0;
+            else
+                temp->right = 0;
+        }
+
+        cout << "\nDeleting node " << root->key;
+        delete root;
+        root = temp;
+    };
+}
+
 SplayTree::~SplayTree() {
-    destroyRecursive(root);
+    destroyNonRecursive(root);
 }
 
 void SplayTree::preorder() {
