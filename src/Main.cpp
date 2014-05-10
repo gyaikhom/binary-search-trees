@@ -7,7 +7,7 @@
 using namespace std;
 
 void testBinarySearchTree() {
-    cout << "Testing Binary Search Tree..." << endl;
+    cout << "Testing Binary Search Tree...";
     BinarySearchTree tree;
     tree.add(5);
     tree.add(4);
@@ -21,10 +21,24 @@ void testBinarySearchTree() {
     tree.preorder();
     tree.inorder();
     tree.postorder();
+
+    BinarySearchTreeNode* node = tree.find(2);
+    if (node) {
+        cout << "\nFound node with key " << 2;
+    } else {
+        cout << "\nCould not find node with key " << 2;
+    }
+
+    node = tree.find(1);
+    if (node) {
+        cout << "\nFound node with key " << 1;
+    } else {
+        cout << "\nCould not find node with key " << 1;
+    }
 }
 
 void testSplayTree() {
-    cout << "Testing Splay Tree..." << endl;
+    cout << "\n\nTesting Splay Tree...";
     SplayTree tree;
     tree.add(5);
     tree.add(4);
