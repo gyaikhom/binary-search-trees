@@ -47,27 +47,42 @@ SplayTree::~SplayTree() {
     destroyNonRecursive(root);
 }
 
-void SplayTree::preorder() {
-    cout << "\nPreorder traversal\n";
-    preorderRecursive(root);
-}
-
-void SplayTree::inorder() {
-    cout << "\nInorder traversal\n";
-    inorderRecursive(root);
-}
-
-void SplayTree::postorder() {
-    cout << "\nPostorder traversal\n";
-    postorderRecursive(root);
-}
-
 void SplayTree::preorderRecursive(SplayTreeNode* root) {
     if (root) {
         cout << root->key;
         preorderRecursive(root->left);
         preorderRecursive(root->right);
     }
+}
+
+void SplayTree::preorderNonRecursive(SplayTreeNode* root) {
+    SplayTreeNode* current = root;
+    while (current) {
+        if (!current->visited) {
+            cout << current->key;
+            current->visited = true;
+        }
+
+        if (current->left && !current->left->visited) {
+            current = current->left;
+            continue;
+        } else if (current->right && !current->right->visited) {
+            current = current->right;
+            continue;
+        }
+        if (current->left)
+            current->left->visited = false;
+        if (current->right)
+            current->right->visited = false;
+
+        current = current->parent;
+    };
+    root->visited = false;
+}
+
+void SplayTree::preorder() {
+    cout << "\nPreorder traversal\n";
+    preorderNonRecursive(root);
 }
 
 void SplayTree::inorderRecursive(SplayTreeNode* root) {
@@ -78,12 +93,73 @@ void SplayTree::inorderRecursive(SplayTreeNode* root) {
     }
 }
 
+void SplayTree::inorderNonRecursive(SplayTreeNode* root) {
+    SplayTreeNode* current = root;
+    while (current) {
+        if (current->left && !current->left->visited) {
+            current = current->left;
+            continue;
+        }
+
+        if (!current->visited) {
+            cout << current->key;
+            current->visited = true;
+        }
+
+        if (current->right && !current->right->visited) {
+            current = current->right;
+            continue;
+        }
+        if (current->left)
+            current->left->visited = false;
+        if (current->right)
+            current->right->visited = false;
+        current = current->parent;
+    };
+    root->visited = false;
+}
+
+void SplayTree::inorder() {
+    cout << "\nInorder traversal\n";
+    inorderNonRecursive(root);
+}
+
 void SplayTree::postorderRecursive(SplayTreeNode* root) {
     if (root) {
         postorderRecursive(root->left);
         postorderRecursive(root->right);
         cout << root->key;
     }
+}
+
+void SplayTree::postorderNonRecursive(SplayTreeNode* root) {
+    SplayTreeNode* current = root;
+    while (current) {
+        if (current->left && !current->left->visited) {
+            current = current->left;
+            continue;
+        } else if (current->right && !current->right->visited) {
+            current = current->right;
+            continue;
+        }
+
+        if (!current->visited) {
+            cout << current->key;
+            current->visited = true;
+        }
+
+        if (current->left)
+            current->left->visited = false;
+        if (current->right)
+            current->right->visited = false;
+        current = current->parent;
+    };
+    root->visited = false;
+}
+
+void SplayTree::postorder() {
+    cout << "\nPostorder traversal\n";
+    postorderNonRecursive(root);
 }
 
 int SplayTree::add(int key) {

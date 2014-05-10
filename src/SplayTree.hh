@@ -19,7 +19,13 @@ private:
     void destroyNonRecursive(SplayTreeNode* root);
     
     void preorderRecursive(SplayTreeNode *root);
+    void preorderNonRecursive(SplayTreeNode *root);
+    
     void inorderRecursive(SplayTreeNode *root);
+    void inorderNonRecursive(SplayTreeNode *root);
+    
     void postorderRecursive(SplayTreeNode *root);
+    void postorderNonRecursive(SplayTreeNode *root);
+    
     SplayTreeNode* splayBottomUp(SplayTreeNode* current);
 };
