@@ -46,7 +46,7 @@ int SplayTree::add(int key) {
     }
 
 splay:
-    splayBottomUp(current);
+    splayBottomUp(newNode);
     return 0;
 }
 
