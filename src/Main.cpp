@@ -1,12 +1,12 @@
 /* Copyright 2014 Gagarine Yaikhom (MIT License) */
 
 #include <iostream>
-#include "SplayTree.hh"
+#include "BinarySearchTree.hh"
 
 using namespace std;
 
 int main(int argc, char **argv) {
-    SplayTree tree;
+    BinarySearchTree tree;
     tree.add(5);
     tree.add(4);
     tree.add(6);
