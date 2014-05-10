@@ -1,31 +1,20 @@
 /* Copyright 2014 Gagarine Yaikhom (MIT License) */
 
-#include "SplayTreeNode.hh"
+#ifndef SPLAY_TREE_HH
+#define	SPLAY_TREE_HH
 
-class SplayTree {
+#include "BinarySearchTree.hh"
+
+class SplayTree : public BinarySearchTree {
 public:
     SplayTree();
     ~SplayTree();
     int add(int key);
-    SplayTreeNode* find(int key, bool doSplay);
     int remove(int key);
-    void preorder();
-    void inorder();
-    void postorder();
+    BinarySearchTreeNode* find(int key);
 
 private:
-    SplayTreeNode* root;
-    void destroyRecursive(SplayTreeNode *root);
-    void destroyNonRecursive(SplayTreeNode* root);
-    
-    void preorderRecursive(SplayTreeNode *root);
-    void preorderNonRecursive(SplayTreeNode *root);
-    
-    void inorderRecursive(SplayTreeNode *root);
-    void inorderNonRecursive(SplayTreeNode *root);
-    
-    void postorderRecursive(SplayTreeNode *root);
-    void postorderNonRecursive(SplayTreeNode *root);
-    
-    SplayTreeNode* splayBottomUp(SplayTreeNode* current);
+    BinarySearchTreeNode* splayBottomUp(BinarySearchTreeNode* current);
 };
+
+#endif

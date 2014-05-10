@@ -1,5 +1,10 @@
 /* Copyright 2014 Gagarine Yaikhom (MIT License) */
 
+#ifndef BINARY_SEARCH_TREE_NODE_HH
+#define	BINARY_SEARCH_TREE_NODE_HH
+
+class SplayTree;
+
 class BinarySearchTreeNode {
 public:
     BinarySearchTreeNode(int keyValue) : key(keyValue) {
@@ -9,10 +14,13 @@ public:
     bool operator<(const BinarySearchTreeNode& other);
     bool operator==(const BinarySearchTreeNode& other);
 
-private:
+protected:
     int key;
     BinarySearchTreeNode *parent, *left, *right;
     bool visited; /* for tree traversal without stack */
 
     friend class BinarySearchTree;
+    friend class SplayTree;
 };
+
+#endif

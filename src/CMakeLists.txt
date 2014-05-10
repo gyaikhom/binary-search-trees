@@ -1,1 +1,1 @@
-add_library(DataStructures BinarySearchTree.cpp BinarySearchTreeNode.cpp SplayTreeNode.cpp SplayTree.cpp)
+add_library(DataStructures BinarySearchTree.cpp BinarySearchTreeNode.cpp SplayTree.cpp)

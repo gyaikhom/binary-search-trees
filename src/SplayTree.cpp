@@ -9,200 +9,52 @@ SplayTree::SplayTree() {
     root = 0;
 }
 
-void SplayTree::destroyRecursive(SplayTreeNode* root) {
-    if (root) {
-        destroyRecursive(root->left);
-        destroyRecursive(root->right);
-        cout << "\nDeleting node " << root->key;
-        delete root;
-    }
-}
-
-void SplayTree::destroyNonRecursive(SplayTreeNode* root) {
-    SplayTreeNode* temp;
-    /* similar to postorder traversal */
-    while (root) {
-        if (root->left) {
-            root = root->left;
-            continue;
-        } else if (root->right) {
-            root = root->right;
-            continue;
-        }
-        temp = root->parent;
-        if (temp) {
-            if (temp->left == root)
-                temp->left = 0;
-            else
-                temp->right = 0;
-        }
-
-        cout << "\nDeleting node " << root->key;
-        delete root;
-        root = temp;
-    };
-}
-
 SplayTree::~SplayTree() {
-    destroyNonRecursive(root);
-}
-
-void SplayTree::preorderRecursive(SplayTreeNode* root) {
-    if (root) {
-        cout << root->key;
-        preorderRecursive(root->left);
-        preorderRecursive(root->right);
-    }
-}
-
-void SplayTree::preorderNonRecursive(SplayTreeNode* root) {
-    SplayTreeNode* current = root;
-    while (current) {
-        if (!current->visited) {
-            cout << current->key;
-            current->visited = true;
-        }
-
-        if (current->left && !current->left->visited) {
-            current = current->left;
-            continue;
-        } else if (current->right && !current->right->visited) {
-            current = current->right;
-            continue;
-        }
-        if (current->left)
-            current->left->visited = false;
-        if (current->right)
-            current->right->visited = false;
-
-        current = current->parent;
-    };
-    root->visited = false;
-}
-
-void SplayTree::preorder() {
-    cout << "\nPreorder traversal\n";
-    preorderNonRecursive(root);
-}
-
-void SplayTree::inorderRecursive(SplayTreeNode* root) {
-    if (root) {
-        inorderRecursive(root->left);
-        cout << root->key;
-        inorderRecursive(root->right);
-    }
-}
-
-void SplayTree::inorderNonRecursive(SplayTreeNode* root) {
-    SplayTreeNode* current = root;
-    while (current) {
-        if (current->left && !current->left->visited) {
-            current = current->left;
-            continue;
-        }
-
-        if (!current->visited) {
-            cout << current->key;
-            current->visited = true;
-        }
-
-        if (current->right && !current->right->visited) {
-            current = current->right;
-            continue;
-        }
-        if (current->left)
-            current->left->visited = false;
-        if (current->right)
-            current->right->visited = false;
-        current = current->parent;
-    };
-    root->visited = false;
-}
-
-void SplayTree::inorder() {
-    cout << "\nInorder traversal\n";
-    inorderNonRecursive(root);
-}
-
-void SplayTree::postorderRecursive(SplayTreeNode* root) {
-    if (root) {
-        postorderRecursive(root->left);
-        postorderRecursive(root->right);
-        cout << root->key;
-    }
-}
-
-void SplayTree::postorderNonRecursive(SplayTreeNode* root) {
-    SplayTreeNode* current = root;
-    while (current) {
-        if (current->left && !current->left->visited) {
-            current = current->left;
-            continue;
-        } else if (current->right && !current->right->visited) {
-            current = current->right;
-            continue;
-        }
-
-        if (!current->visited) {
-            cout << current->key;
-            current->visited = true;
-        }
-
-        if (current->left)
-            current->left->visited = false;
-        if (current->right)
-            current->right->visited = false;
-        current = current->parent;
-    };
-    root->visited = false;
-}
-
-void SplayTree::postorder() {
-    cout << "\nPostorder traversal\n";
-    postorderNonRecursive(root);
 }
 
 int SplayTree::add(int key) {
     if (root == 0) {
-        root = new SplayTreeNode(key);
-    } else {
-        SplayTreeNode* current = root;
-        SplayTreeNode* newNode = new SplayTreeNode(key);
-        while (current) {
-            if (*current == *newNode) {
-                delete newNode;
-                return 1; /* duplicate key */
-            } else {
-                if (*newNode < *current) {
-                    if (current->left) {
-                        current = current->left;
-                    } else {
-                        current->left = newNode;
-                        newNode->parent = current;
-                        return 0;
-                    }
+        root = new BinarySearchTreeNode(key);
+        return 0;
+    }
+
+    BinarySearchTreeNode* current = root;
+    BinarySearchTreeNode* newNode = new BinarySearchTreeNode(key);
+    while (current) {
+        if (*current == *newNode) {
+            delete newNode;
+            return 1; /* duplicate key */
+        } else {
+            if (*newNode < *current) {
+                if (current->left) {
+                    current = current->left;
                 } else {
-                    if (current->right) {
-                        current = current->right;
-                    } else {
-                        current->right = newNode;
-                        newNode->parent = current;
-                        return 0;
-                    }
+                    current->left = newNode;
+                    newNode->parent = current;
+                    goto splay;
+                }
+            } else {
+                if (current->right) {
+                    current = current->right;
+                } else {
+                    current->right = newNode;
+                    newNode->parent = current;
+                    goto splay;
                 }
             }
         }
     }
+
+splay:
+    splayBottomUp(current);
     return 0;
 }
 
-SplayTreeNode* SplayTree::find(int key, bool doSplay) {
-    SplayTreeNode* current = root;
+BinarySearchTreeNode* SplayTree::find(int key) {
+    BinarySearchTreeNode* current = root;
     while (current) {
         if (key == current->key) {
-            if (doSplay) {
-                splayBottomUp(current);
-            }
+            splayBottomUp(current);
             return current;
         } else {
             if (key < current->key) {
@@ -219,8 +71,8 @@ int SplayTree::remove(int key) {
     return 0;
 }
 
-SplayTreeNode* SplayTree::splayBottomUp(SplayTreeNode* current) {
-    SplayTreeNode *parent, *grandParent;
+BinarySearchTreeNode* SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
+    BinarySearchTreeNode *parent, *grandParent;
     while (1) {
         parent = current->parent;
         if (!parent) {

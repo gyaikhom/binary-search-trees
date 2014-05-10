@@ -1,5 +1,8 @@
 /* Copyright 2014 Gagarine Yaikhom (MIT License) */
 
+#ifndef BINARY_SEARCH_TREE_HH
+#define	BINARY_SEARCH_TREE_HH
+
 #include "BinarySearchTreeNode.hh"
 
 class BinarySearchTree {
@@ -14,7 +17,7 @@ public:
     void postorder();
     BinarySearchTreeNode* find(int key);
 
-private:
+protected:
     BinarySearchTreeNode* root;
 
     void destroyRecursive(BinarySearchTreeNode *root);
@@ -29,3 +32,5 @@ private:
     void postorderRecursive(BinarySearchTreeNode *root);
     void postorderNonRecursive(BinarySearchTreeNode *root);
 };
+
+#endif
