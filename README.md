@@ -22,3 +22,19 @@ Note that in these non-recursive implementations, we do not use
 a _Stack_, which is a common method for non-recursive implementations.
 Instead, we use a node property `visited` which is a boolean variable.
 This removes the overhead of maintaining a _Stack_.
+
+
+## Usage
+
+To compile the programs, you will need [CMake](http://www.cmake.org/) and
+a [C++ compiler](http://gcc.gnu.org/).
+
+The steps are as follows:
+
+    $ git clone https://github.com/gyaikhom/binary-search-trees.git
+    $ cd binary-search-trees
+    $ mkdir build
+    $ cd build
+    $ cmake -G "Unix Makefiles" ..
+    $ make
+    $ ./testBinarySearchTrees
