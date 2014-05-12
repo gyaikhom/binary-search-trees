@@ -38,3 +38,4 @@ The steps are as follows:
     $ cmake -G "Unix Makefiles" ..
     $ make
     $ ./testBinarySearchTrees
+
