@@ -40,7 +40,8 @@ void BinarySearchTree::preorderNonRecursive(BinarySearchTreeNode* root) {
 
         current = current->parent;
     };
-    root->visited = false;
+    if (root)
+        root->visited = false;
 }
 
 void BinarySearchTree::preorder() {
@@ -81,7 +82,8 @@ void BinarySearchTree::inorderNonRecursive(BinarySearchTreeNode* root) {
 
         current = current->parent;
     };
-    root->visited = false;
+    if (root)
+        root->visited = false;
 }
 
 void BinarySearchTree::inorder() {
@@ -120,7 +122,8 @@ void BinarySearchTree::postorderNonRecursive(BinarySearchTreeNode* root) {
 
         current = current->parent;
     };
-    root->visited = false;
+    if (root)
+        root->visited = false;
 }
 
 void BinarySearchTree::postorder() {
