@@ -17,17 +17,17 @@ public:
     void postorder();
     BinarySearchTreeNode* find(int key);
     BinarySearchTreeNode* min() {
-        return findMin(0);
+        return findSubtreeMin(root);
     };
     BinarySearchTreeNode* max() {
-        return findMax(0);
+        return findSubtreeMax(root);
     };
 
 protected:
     BinarySearchTreeNode* root;
 
-    BinarySearchTreeNode* findMin(BinarySearchTreeNode* root);
-    BinarySearchTreeNode* findMax(BinarySearchTreeNode* root);
+    BinarySearchTreeNode* findSubtreeMin(BinarySearchTreeNode* root);
+    BinarySearchTreeNode* findSubtreeMax(BinarySearchTreeNode* root);
     
     void destroyRecursive(BinarySearchTreeNode *root);
     void destroyNonRecursive(BinarySearchTreeNode* root);

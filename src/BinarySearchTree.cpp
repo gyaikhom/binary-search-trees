@@ -180,16 +180,16 @@ BinarySearchTreeNode* BinarySearchTree::find(int key) {
     return 0;
 }
 
-BinarySearchTreeNode* BinarySearchTree::findMax(BinarySearchTreeNode* subtreeRoot) {
-    BinarySearchTreeNode* current = subtreeRoot ? subtreeRoot : root;
+BinarySearchTreeNode* BinarySearchTree::findSubtreeMax(BinarySearchTreeNode* root) {
+    BinarySearchTreeNode* current = root;
     if (current)
         while (current->right)
             current = current->right;
     return current;
 }
 
-BinarySearchTreeNode* BinarySearchTree::findMin(BinarySearchTreeNode* subtreeRoot) {
-    BinarySearchTreeNode* current = subtreeRoot ? subtreeRoot : root;
+BinarySearchTreeNode* BinarySearchTree::findSubtreeMin(BinarySearchTreeNode* root) {
+    BinarySearchTreeNode* current = root;
     if (current)
         while (current->left)
             current = current->left;
@@ -197,7 +197,10 @@ BinarySearchTreeNode* BinarySearchTree::findMin(BinarySearchTreeNode* subtreeRoo
 }
 
 int BinarySearchTree::remove(int key) {
-    return 0;
+    BinarySearchTreeNode* node = find(key);
+    if (node) {
+        
+    }
 }
 
 void BinarySearchTree::destroyRecursive(BinarySearchTreeNode* root) {
