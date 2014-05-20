@@ -180,6 +180,22 @@ BinarySearchTreeNode* BinarySearchTree::find(int key) {
     return 0;
 }
 
+BinarySearchTreeNode* BinarySearchTree::findMax(BinarySearchTreeNode* subtreeRoot) {
+    BinarySearchTreeNode* current = subtreeRoot ? subtreeRoot : root;
+    if (current)
+        while (current->right)
+            current = current->right;
+    return current;
+}
+
+BinarySearchTreeNode* BinarySearchTree::findMin(BinarySearchTreeNode* subtreeRoot) {
+    BinarySearchTreeNode* current = subtreeRoot ? subtreeRoot : root;
+    if (current)
+        while (current->left)
+            current = current->left;
+    return current;
+}
+
 int BinarySearchTree::remove(int key) {
     return 0;
 }
