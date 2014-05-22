@@ -16,9 +16,11 @@ public:
     void inorder();
     void postorder();
     BinarySearchTreeNode* find(int key);
+
     BinarySearchTreeNode* min() {
         return findSubtreeMin(root);
     };
+
     BinarySearchTreeNode* max() {
         return findSubtreeMax(root);
     };
@@ -28,16 +30,18 @@ protected:
 
     BinarySearchTreeNode* findSubtreeMin(BinarySearchTreeNode* root);
     BinarySearchTreeNode* findSubtreeMax(BinarySearchTreeNode* root);
-    
+
+    void removeNode(BinarySearchTreeNode *node);
+
     void destroyRecursive(BinarySearchTreeNode *root);
     void destroyNonRecursive(BinarySearchTreeNode* root);
-    
+
     void preorderRecursive(BinarySearchTreeNode *root);
     void preorderNonRecursive(BinarySearchTreeNode *root);
-    
+
     void inorderRecursive(BinarySearchTreeNode *root);
     void inorderNonRecursive(BinarySearchTreeNode *root);
-    
+
     void postorderRecursive(BinarySearchTreeNode *root);
     void postorderNonRecursive(BinarySearchTreeNode *root);
 };

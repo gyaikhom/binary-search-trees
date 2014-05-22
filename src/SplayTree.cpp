@@ -67,7 +67,12 @@ BinarySearchTreeNode* SplayTree::find(int key) {
 }
 
 int SplayTree::remove(int key) {
-    return 0;
+    BinarySearchTreeNode* node = find(key);
+    if (node) {
+        BinarySearchTree::removeNode(node);
+        return 1;
+    } else
+        return 0;
 }
 
 void SplayTree::splayBottomUp(BinarySearchTreeNode* current) {
