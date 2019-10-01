@@ -8,9 +8,6 @@ In this project, we implement the following binary search trees:
 These programs were written for self-study. Few functions have not been
 implemented yet.
 
-I have written articles describing these implementations at my
-[homepage](http://yaikhom.com/articles.html).
-
 
 ## Interesting stuff
 
